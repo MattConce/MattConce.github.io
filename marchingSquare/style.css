@@ -1,0 +1,35 @@
+* {
+    font-family: monospace;
+}
+.centered {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 800px;
+}
+
+body {
+  background: pink;
+}
+
+h1 {
+  text-align: center;
+}
+
+.position-bottom-right {
+  position: absolute;
+  width:200px;
+  height:100px;
+  left: 600px;
+  top: 50px;
+}
+
+
+#content {
+  padding: 25px;
+  margin: auto;
+  background: grey;
+  border: thin solid black;
+}
