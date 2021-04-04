@@ -1,22 +1,53 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
     <script src="sketch.js"></script>
     <script src="square.js"></script>
     <script src="node.js"></script>
     <script src="pathFinder.js"></script>
-    <script type="text/javascript" src="dat.gui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../style.css">
   </head>
-  <body>
+  <body oncontextmenu="return false;">
     <script src="sketch.js"></script>
     <header class="header">
-      <h1> Path finder visualizer </h1>
+      <a class="fa fa-arrow-left icon" style="font-size:36px" href="../index.html"> </a>
+      <h1 class="title"> Path finder visualizer </h1>
     </header>
     <main class="main">
       <div class="content">
-        <div class="centered" id="sketch-container">
-          <div class="position-bottom-right" id="tools-container">
+        <div id="sketch-container">
+        </div>
+        <div class="button-container-column">
+          <div class="label-header">
+            Map configuration
+          </div>
+          <button id="generate-button" class="button-generate">Generate</button>
+          <div class="select">
+            <select id="slct" name="slct">
+              <option selected value="dfs">Depth First Search</option>
+              <option value="bfs">Breadth First Search</option>
+              <option value="astar">A Start</option>
+            </select>
+          </div>
+          <div class="label-container-2">
+            Iterations
+          </div>
+          <div class="range-container-2">
+            <input class="range" type="range" min="1" max="10" value="1" step="1" onmousemove="rangevalue2.value=value"></input>
+            <output id="rangevalue2">1</output>
+          </div>
+          <div class="label-container">
+            Fill
+          </div>
+          <div class="range-container">
+            <input class="range" type="range" min="0" max="100" value="20" step="1" onmousemove="rangevalue1.value=value"></input>
+            <output id="rangevalue1">20</output>
+          </div>
+          <div class="button-container-row">
+            <button id="start-button" class="button">Start</button>
+            <button id="reset-button" class="button">Reset</button>
           </div>
         </div>
       </div>

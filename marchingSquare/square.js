@@ -26,10 +26,10 @@ class Grid {
 
     for (let j = 0; j < this.rows; j++) {
       for (let i = 0; i < this.cols; i++) {
-        let x = i * resolution + resolution/2
-        let y = j * resolution + resolution/2
-        let active = Math.random() < wp/100 ? true : false
-        if (i == 0 || i == this.cols-1 || j == 0 || j == this.rows-1)
+        let x = i * resolution + resolution / 2
+        let y = j * resolution + resolution / 2
+        let active = Math.random() < wp / 100 ? true : false
+        if (i == 0 || i == this.cols - 1 || j == 0 || j == this.rows - 1)
           active = true
         this.points[this.idx(i, j)] = new ControlNode(createVector(x, y), this.idx(i, j), active, resolution)
       }
@@ -39,13 +39,13 @@ class Grid {
       this.smoothMap()
     }
 
-    for (let j = 0; j < this.rows-1; j++) {
-      for (let i = 0; i < this.cols-1; i++) {
+    for (let j = 0; j < this.rows - 1; j++) {
+      for (let i = 0; i < this.cols - 1; i++) {
         let tl = this.points[this.idx(i, j)]
-        let tr = i < this.cols ? this.points[this.idx(i+1, j)] : null
-        let br = i < this.cols && j < this.rows ? this.points[this.idx(i+1, j+1)] : null
-        let bl = j < this.rows ? this.points[this.idx(i, j+1)] : null
-        this.grid[i + j * (this.cols-1)] = new Square(tl, tr, br, bl)
+        let tr = i < this.cols ? this.points[this.idx(i + 1, j)] : null
+        let br = i < this.cols && j < this.rows ? this.points[this.idx(i + 1, j + 1)] : null
+        let bl = j < this.rows ? this.points[this.idx(i, j + 1)] : null
+        this.grid[i + j * (this.cols - 1)] = new Square(tl, tr, br, bl)
       }
     }
   }
@@ -66,7 +66,7 @@ class Grid {
         else if (neighbors < 4) {
           this.points[this.idx(i, j)].active = false
         }
-        if (i == 0 || i == this.cols-1 || j == 0 || j == this.rows-1)
+        if (i == 0 || i == this.cols - 1 || j == 0 || j == this.rows - 1)
           this.points[this.idx(i, j)].active = true
       }
     }
@@ -74,10 +74,10 @@ class Grid {
 
   surroundingWallsCount(i, j) {
     let cnt = 0
-    for (let x = i-1; x <= i+1; x++) {
-      for (let y = j-1; y <= j+1; y++) {
+    for (let x = i - 1; x <= i + 1; x++) {
+      for (let y = j - 1; y <= j + 1; y++) {
         if (!this.boundsX(x * this.resolution) || !this.boundsY(y * this.resolution))
-        continue
+          continue
         if (!(x == i && y == j))
           cnt += this.points[this.idx(x, y)].active
       }
@@ -97,7 +97,7 @@ class Grid {
     else {
       idA.parent = idB
       idB.size += idA.size
-    } 
+    }
   }
 
   boundsX(x) {
@@ -120,10 +120,10 @@ class Grid {
       let bl = square.controlNodes['bl']
 
 
-      let a = square.nodes['above'].pos 
-      let b = square.nodes['right'].pos 
-      let c = square.nodes['bottom'].pos 
-      let d = square.nodes['left'].pos 
+      let a = square.nodes['above'].pos
+      let b = square.nodes['right'].pos
+      let c = square.nodes['bottom'].pos
+      let d = square.nodes['left'].pos
 
       switch (state) {
         case 0:

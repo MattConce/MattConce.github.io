@@ -1,21 +1,16 @@
 * {
     font-family: monospace;
 }
+
 .centered {
+  display: flex;
   padding-left: 0;
   padding-right: 0;
   margin-left: auto;
   margin-right: auto;
-  display: block;
-  width: 800px;
-}
-
-body {
-  background: pink;
-}
-
-h1 {
-  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .position-bottom-right {
@@ -27,7 +22,10 @@ h1 {
 }
 
 
-#content {
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 25px;
   margin: auto;
   background: grey;

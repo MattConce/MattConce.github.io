@@ -32,6 +32,7 @@ class PathFinder {
       point.reached = false
       point.target = false
       point.start = false
+      point.parent = null
     }
   }
 
@@ -42,12 +43,12 @@ class PathFinder {
         return
       for (let point of this.grid) {
         if (!point) continue
-        if (point.start == true && p5.Vector.dist(point.pos, createVector(x, y)) > resolution*0.5) {
+        if (point.start == true && p5.Vector.dist(point.pos, createVector(x, y)) > resolution * 0.5) {
           point.start = false
           point.hide()
         }
 
-        if (p5.Vector.dist(point.pos, createVector(x, y)) < resolution*0.5 && !found && !point.active) {
+        if (p5.Vector.dist(point.pos, createVector(x, y)) < resolution * 0.5 && !found && !point.active) {
           this.start = point
           point.start = true
           point.show()
@@ -62,18 +63,25 @@ class PathFinder {
       for (let point of this.grid) {
         if (!point) continue
         if (point.target == true &&
-          p5.Vector.dist(point.pos, createVector(x, y)) > resolution*0.5) {
+          p5.Vector.dist(point.pos, createVector(x, y)) > resolution * 0.5) {
           point.target = false
           point.hide()
         }
 
-        if (p5.Vector.dist(point.pos, createVector(x, y)) < resolution*0.5 && !found && !point.active) {
+        if (p5.Vector.dist(point.pos, createVector(x, y)) < resolution * 0.5 && !found && !point.active) {
           this.target = point
           point.target = true
           point.show()
           found = true
         }
       }
+    }
+  }
+
+  drawPath(end) {
+    for (let node = end; node != null; node = node.parent) {
+      stroke(color(160, 0, 120))
+      point(node.pos.x, node.pos.y)
     }
   }
 
@@ -84,12 +92,14 @@ class PathFinder {
       cur.current = true
       cur.show()
       if (cur == this.target) {
+        //this.drawPath(cur)
         this.reset()
         return
       }
       for (let neighbor of this.neighbors(cur.idx)) {
         if (!neighbor.visited && !neighbor.active) {
           neighbor.reached = true
+          neighbor.parent = cur
           neighbor.show()
           this.stack.push(neighbor)
         }
@@ -107,10 +117,10 @@ class PathFinder {
     let i = idx % this.cols
     let j = floor(idx / this.rows)
     let neighbors = []
-    for (let x = i-1; x <= i+1; x++) {
-      for (let y = j-1; y <= j+1; y++) {
+    for (let x = i - 1; x <= i + 1; x++) {
+      for (let y = j - 1; y <= j + 1; y++) {
         if (!this.boundsX(x * resolution) || !this.boundsY(y * resolution))
-        continue
+          continue
         if (!(x == i && y == j)) {
           neighbors.push(this.grid[x + y * this.cols])
         }
